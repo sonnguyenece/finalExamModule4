@@ -97,14 +97,15 @@ public class ProvinceController {
     }
 
     @PostMapping("/edit-province")
-    public ModelAndView updateProvince(@ModelAttribute("province") Province province, Locale locale) {
-        provinceService.save(province);
+    public ModelAndView updateProvince(@ModelAttribute("province") Province province) {
+
         ModelAndView modelAndView = new ModelAndView("/province/edit");
+        province.setId(province.getId());
+        provinceService.save(province);
         modelAndView.addObject("province", province);
+        modelAndView.addObject("message", "saved");
 
-        String message = messageSource.getMessage("notiEditProvince", null, locale);
 
-        modelAndView.addObject("message", message);
         return modelAndView;
     }
 
