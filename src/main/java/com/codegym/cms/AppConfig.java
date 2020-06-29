@@ -156,6 +156,8 @@
 
 package com.codegym.cms;
 
+import com.codegym.cms.service.ProvinceService;
+import com.codegym.cms.service.impl.ProvinceServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -344,10 +346,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 //        addDefaultHttpMessageConverters(converters);
 //    }
 //
-//    @Bean
-//    public ProvinceService provinceService() {
-//        return new ProvinceServiceImpl();
-//    }
+    @Bean
+    public ProvinceService provinceService() {
+        return new ProvinceServiceImpl();
+    }
 //
 //    @Bean
 //    public CustomerService customerService() {

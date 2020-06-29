@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit province</title>
+</head>
+<body>
+<h1>Edit province</h1>
+<p>
+    <a href="/provinces">Province list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/edit-province}" th:object="${province}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Tên thành phố:</td>
+            <td><input type="text" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td>Tên quốc gia:</td>
+            <td><input type="text" th:field="*{national}" required/></td>
+        </tr>
+        <tr>
+            <td>Diện tích:</td>
+            <td><input type="number" step="0.01" th:field="*{area}" /></td>
+        </tr>
+        <tr>
+            <td>Dân số:</td>
+            <td><input type="text" th:field="*{population}" min="1" required/></td>
+        </tr>
+        <tr>
+            <td>GDP:</td>
+            <td><input type="number" step="0.01" th:field="*{GDP}" /></td>
+        </tr>
+        <tr>
+            <td>Giới thiệu</td>
+            <td><textarea type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create province"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Provinces</title>
+</head>
+<body>
+<!--<div>-->
+<!--<span th:text="#{province.language}">Language:</span> <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnamese</a>-->
+<!--</div>-->
+<!--<a href="/create-province" th:text="#{province.list.creatNewProvince}">Create new province</a>-->
+<!--<h1 th:text="#{province.list.provinceName}"></h1>-->
+<h3>Danh sách thành phố</h3>
+<a href="/create-province">Thêm thành phố</a>
+
+<table border="1">
+    <tr>
+<!--        <th th:text="#{province.list.table.headerName}"></th>-->
+<!--        <th th:text="#{province.list.table.headerEdit}"></th>-->
+<!--        <th th:text="#{province.list.table.headerDelete}"></th>-->
+        <th >#</th>
+        <th >Thành phố</th>
+        <th >Quốc gia</th>
+        <th ></th>
+    </tr>
+    <th:block th:each="province,iter : ${provinces}">
+        <tr>
+            <td th:text="${iter.count}"></td>
+            <td><a th:href="@{/view-province/{id}(id=${province.id})}">
+                <span th:text="${province.name}"></span></a></td>
+            <td th:text="${province.getNational()}"></td>
+            <td><a th:href="@{/edit-province/__${province.id}__ }" >Sửa</a>|
+                <a th:href="@{/delete-province/__${province.id}__ }">Xóa</a></td>
+
+<!--            <td><a th:href="@{/edit-province/__${province.id}__ }" th:text="#{province.list.table.headerEdit}"></a></td>-->
+<!--            <td><a th:href="@{/delete-province/__${province.id}__ }" th:text="#{province.list.table.headerDelete}"></a></td>-->
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
