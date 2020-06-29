@@ -21,7 +21,11 @@
         </tr>
         <tr>
             <td>Tên quốc gia:</td>
-            <td><input type="text" th:field="*{national}" required/></td>
+            <td>
+                <select th:field="*{national}">
+                    <option th:each="n : ${nationals}" th:value="${n.id}" th:text="${n.name}"></option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>Diện tích:</td>
@@ -41,7 +45,11 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create province"></td>
+            <td><input type="submit" value="Lưu lại"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="/provinces">Thoát</a></td>
         </tr>
     </table>
 </form>

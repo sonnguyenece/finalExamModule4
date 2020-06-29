@@ -14,12 +14,14 @@ public class Province {
     private String name;
     @Min(0)
     private float area;
-    private String national;
     @Min(0)
     private Long population;
     @Min(0)
     private float GDP;
     private String description;
+
+    @ManyToOne
+    private National national;
 
     public Province() {
     }
@@ -53,11 +55,11 @@ public class Province {
         this.area = area;
     }
 
-    public String getNational() {
+    public National getNational() {
         return national;
     }
 
-    public void setNational(String national) {
+    public void setNational(National national) {
         this.national = national;
     }
 

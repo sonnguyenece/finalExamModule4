@@ -6,18 +6,41 @@
 </head>
 <body>
 <h1>View province: <span th:text="${province.name}"></span></h1>
-<a href="/provinces" th:text="#{province.view.provinceList}"></a>
-<table border="1">
+<table>
     <tr>
-        <th th:text="#{province.view.firstName}"></th>
-        <th th:text="#{province.view.lastName}"></th>
+        <td>Tên thành phố:</td>
+        <td><p type="text" th:text="${province.name}" required/></td>
     </tr>
-    <th:block th:each="customer : ${customers}">
-        <tr>
-            <td th:text="${customer.firstName}"></td>
-            <td th:text="${customer.lastName}"></td>
-        </tr>
-    </th:block>
+    <tr>
+        <td>Quốc gia:</td>
+        <td>
+            <p th:text="${province.getNational().getName()}">
+        </td>
+    </tr>
+    <tr>
+        <td>Diện tích:</td>
+        <td><p th:text="${province.getArea()}" /></td>
+    </tr>
+    <tr>
+        <td>Dân số:</td>
+        <td><p type="text" th:text="${province.getPopulation()}" min="1" required/></td>
+    </tr>
+    <tr>
+        <td>GDP:</td>
+        <td><p type="number" step="0.01" th:text="${province.getGDP()}" /></td>
+    </tr>
+    <tr>
+        <td>Giới thiệu</td>
+        <td><p type="text" th:text="${province.getDescription()}"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><a th:href="@{/edit-province/__${province.id}__ }" >Sửa</a>|
+    </tr>
+    <tr>
+        <td></td>
+        <td><a href="/provinces">Thoát</a></td>
+    </tr>
 </table>
 </body>
 </html>

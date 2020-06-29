@@ -1,6 +1,8 @@
 package com.codegym.cms.controller;
 
+import com.codegym.cms.model.National;
 import com.codegym.cms.model.Province;
+import com.codegym.cms.service.NationalService;
 import com.codegym.cms.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,10 +22,18 @@ import java.util.Locale;
 public class ProvinceController {
 
     @Autowired
+    private NationalService nationalService;
+
+    @Autowired
     private ProvinceService provinceService;
 
     @Autowired
     private MessageSource messageSource;
+
+    @ModelAttribute("nationals")
+    public Iterable<National> nationals() {
+        return nationalService.findAll();
+    }
 
 //    @GetMapping("/view-province/{id}")
 //    public ModelAndView viewProvince(@PathVariable("id") Long id) {
@@ -53,18 +63,6 @@ public class ProvinceController {
         return modelAndView;
     }
 
-//    @PostMapping("/create-province")
-//    public ModelAndView saveProvince(@ModelAttribute("province") Province province) {
-//
-//
-//        provinceService.save(province);
-//
-//        ModelAndView modelAndView = new ModelAndView("/province/create");
-//        modelAndView.addObject("province", new Province());
-//        modelAndView.addObject("message", "New province created successfully");
-//        return modelAndView;
-//    }
-
 
     @PostMapping("/create-province")
     public String createProvince(@Valid @ModelAttribute("province") Province province, BindingResult bindingResult, Model model) {
@@ -76,9 +74,11 @@ public class ProvinceController {
             if (provinceService.findByName(province.getName()) != null) {
                 model.addAttribute("message", "province existed");
                 return "province/create";
-            } else
+            } else {
+
                 provinceService.save(province);
-            return "redirect:provinces";
+                return "redirect:provinces";
+            }
         }
     }
 
@@ -102,7 +102,7 @@ public class ProvinceController {
         ModelAndView modelAndView = new ModelAndView("/province/edit");
         modelAndView.addObject("province", province);
 
-        String message=messageSource.getMessage("notiEditProvince",null,locale);
+        String message = messageSource.getMessage("notiEditProvince", null, locale);
 
         modelAndView.addObject("message", message);
         return modelAndView;
@@ -111,20 +111,34 @@ public class ProvinceController {
     @GetMapping("/delete-province/{id}")
     public ModelAndView showDeleteForm(@PathVariable Long id) {
         Province province = provinceService.findById(id);
+        ModelAndView modelAndView;
         if (province != null) {
-            ModelAndView modelAndView = new ModelAndView("/province/delete");
+            modelAndView = new ModelAndView("/province/delete");
             modelAndView.addObject("province", province);
-            return modelAndView;
 
         } else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
+            modelAndView = new ModelAndView("/error.404");
         }
+        return modelAndView;
     }
 
     @PostMapping("/delete-province")
     public String deleteProvince(@ModelAttribute("province") Province province) {
         provinceService.remove(province.getId());
         return "redirect:provinces";
+    }
+
+    @GetMapping("/view-province/{id}")
+    public ModelAndView viewProvince(@PathVariable("id") Long id) {
+        Province province = provinceService.findById(id);
+        ModelAndView modelAndView;
+        if (province != null) {
+            modelAndView = new ModelAndView("/province/view");
+            modelAndView.addObject("province", province);
+
+        } else {
+            modelAndView = new ModelAndView("/error.404");
+        }
+        return modelAndView;
     }
 }

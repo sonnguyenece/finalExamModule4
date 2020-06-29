@@ -156,7 +156,9 @@
 
 package com.codegym.cms;
 
+import com.codegym.cms.service.NationalService;
 import com.codegym.cms.service.ProvinceService;
+import com.codegym.cms.service.impl.NationalServiceImpl;
 import com.codegym.cms.service.impl.ProvinceServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -302,19 +304,19 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return messageSource;
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang");
-        registry.addInterceptor(interceptor);
-    }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver resolver = new SessionLocaleResolver();
-        resolver.setDefaultLocale(new Locale("en"));
-        return resolver;
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+//        interceptor.setParamName("lang");
+//        registry.addInterceptor(interceptor);
+//    }
+//
+//    @Bean
+//    public LocaleResolver localeResolver() {
+//        SessionLocaleResolver resolver = new SessionLocaleResolver();
+//        resolver.setDefaultLocale(new Locale("en"));
+//        return resolver;
+//    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler
@@ -350,11 +352,11 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public ProvinceService provinceService() {
         return new ProvinceServiceImpl();
     }
-//
-//    @Bean
-//    public CustomerService customerService() {
-//        return new CustomerServiceImpl();
-//    }
+
+    @Bean
+    public NationalService nationalService() {
+        return new NationalServiceImpl();
+    }
 //
 //    @Bean
 //    public IOrderService orderService() {
